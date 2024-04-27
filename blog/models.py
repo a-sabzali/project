@@ -27,11 +27,14 @@ class Category(models.Model):
 
 class Product(models.Model):
 
+    status_choices = (('draft', 'Draft'), ('published', 'Published'))
+
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
 
     name = models.CharField(max_length=128)
     created_at = models.DateTimeField(auto_now_add=True)
     description = models.TextField()
+    status = models.CharField(max_length=10, choices=status_choices, default='draft')
 
     available = models.BooleanField(default=True)
     numbers = models.PositiveIntegerField()
