@@ -1,48 +1,41 @@
-from rest_framework.generics import ListCreateAPIView, \
-    RetrieveUpdateDestroyAPIView
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from blog.models import Person, Product, Category
 from blog.serializers import PersonSerializer, ProductSerializer, CategorySerializer
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
-class PersonListCreateView(ListCreateAPIView):
+class PersonViewSet(viewsets.ModelViewSet):
+    """
+       This ViewSet automatically provides `list`, `create`, `retrieve`,
+       `update` and `destroy` actions.
+    """
 
     permission_classes = (IsAuthenticatedOrReadOnly, )
+
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
 
 
-class PersonRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+class CategoryViewSet(viewsets.ModelViewSet):
+    """
+       This ViewSet automatically provides `list`, `create`, `retrieve`,
+       `update` and `destroy` actions.
+    """
 
-    permission_classes = (IsAuthenticatedOrReadOnly, )
-    queryset = Person.objects.all()
-    serializer_class = PersonSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
-
-class CategoryListCreateView(ListCreateAPIView):
-
-    permission_classes = (IsAuthenticatedOrReadOnly, )
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
-class CategoryRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+class ProductViewSet(viewsets.ModelViewSet):
+    """
+       This ViewSet automatically provides `list`, `create`, `retrieve`,
+       `update` and `destroy` actions.
+    """
 
-    permission_classes = (IsAuthenticatedOrReadOnly, )
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
-
-class ProductListCreateView(ListCreateAPIView):
-
-    permission_classes = (IsAuthenticatedOrReadOnly, )
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-
-
-class ProductRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
-
-    permission_classes = (IsAuthenticatedOrReadOnly, )
     queryset = Product.objects.all()
     serializer_class = ProductSerializer

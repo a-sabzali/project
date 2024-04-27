@@ -1,16 +1,12 @@
-from django.urls import path
-from blog.views import PersonListCreateView, PersonRetrieveUpdateDestroyView,\
-    ProductListCreateView, ProductRetrieveUpdateDestroyView, CategoryListCreateView,\
-    CategoryRetrieveUpdateDestroyView
+from django.urls import path, include
+from blog.views import PersonViewSet, CategoryViewSet, ProductViewSet
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'person', PersonViewSet, basename='person')
+router.register(r'category', CategoryViewSet, basename='category')
+router.register(r'product', ProductViewSet, basename='product')
 
 urlpatterns = [
-
-    path('', ProductListCreateView.as_view()),
-    path('<int:pk>/', ProductRetrieveUpdateDestroyView.as_view()),
-
-    path('person/', PersonListCreateView.as_view()),
-    path('person/<int:pk>/', PersonRetrieveUpdateDestroyView.as_view()),
-
-    path('category/', CategoryListCreateView.as_view()),
-    path('category/<int:pk>/', CategoryRetrieveUpdateDestroyView.as_view()),
+    path('', include(router.urls))
 ]
